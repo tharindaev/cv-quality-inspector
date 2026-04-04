@@ -1,0 +1,10 @@
+fastapi==0.115.6
+uvicorn==0.34.0
+python-multipart==0.0.20
+ultralytics==8.3.57
+Pillow==11.1.0
+numpy==2.2.2
+opencv-python-headless==4.11.0.86
+supabase==2.11.0
+python-dotenv==1.0.1
+aiofiles==24.1.0
