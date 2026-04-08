@@ -1,234 +1,308 @@
-"use client";
-
 import Link from "next/link";
-import Navbar from "@/components/Navbar";
 import {
+  ShieldCheck,
   Eye,
-  Zap,
-  BarChart3,
-  Shield,
-  Upload,
-  Cpu,
-  ArrowRight,
-  CheckCircle,
+  ScanEye,
+  AlertTriangle,
+  Camera,
+  FileText,
   Layers,
-  Gauge,
+  LineChart,
+  ArrowRight,
+  Zap,
+  Target,
+  CheckCircle2,
+  Factory,
+  Package,
+  Car,
+  Cpu,
 } from "lucide-react";
 
 const FEATURES = [
   {
-    icon: Eye,
-    title: "YOLOv8 Detection",
-    description: "State-of-the-art object detection identifies scratches, dents, misalignment, and more in milliseconds.",
-    color: "blue",
+    icon: ScanEye,
+    title: "Defect Detection",
+    desc: "YOLO-powered object detection pinpoints scratches, dents, cracks, and misalignment in milliseconds.",
+  },
+  {
+    icon: AlertTriangle,
+    title: "Severity Classification",
+    desc: "Automatically grade defects as critical, major, or minor to prioritize rework and scrap decisions.",
+  },
+  {
+    icon: Camera,
+    title: "Real-Time Camera",
+    desc: "Inspect products live from any connected camera or mobile device — no extra hardware required.",
+  },
+  {
+    icon: FileText,
+    title: "PDF Reports",
+    desc: "Generate audit-ready reports with annotated images, confidence scores, and timestamps.",
   },
   {
     icon: Layers,
     title: "Batch Processing",
-    description: "Upload entire production batches. Process 50+ images simultaneously with real-time progress tracking.",
-    color: "purple",
+    desc: "Push entire production runs through the pipeline and track progress with live telemetry.",
   },
   {
-    icon: BarChart3,
-    title: "Visual Analytics",
-    description: "Track pass/fail rates, defect trends, and confidence distributions with interactive dashboards.",
-    color: "cyan",
-  },
-  {
-    icon: Shield,
-    title: "Heatmap Overlays",
-    description: "See exactly where defects were detected with color-coded bounding boxes overlaid on original images.",
-    color: "red",
-  },
-  {
-    icon: Gauge,
-    title: "Configurable Sensitivity",
-    description: "Adjust detection thresholds from fine scratches to major defects. Choose your model size for speed vs accuracy.",
-    color: "yellow",
-  },
-  {
-    icon: Cpu,
-    title: "GPU Accelerated",
-    description: "CUDA-optimized inference for production-grade throughput. CPU fallback for accessibility.",
-    color: "green",
+    icon: LineChart,
+    title: "Historical Tracking",
+    desc: "Trend defect rates over time, compare shifts, and catch quality drift before it becomes a recall.",
   },
 ];
 
 const STEPS = [
-  { num: "01", title: "Upload", description: "Drag & drop product photos or upload entire batches" },
-  { num: "02", title: "Detect", description: "YOLOv8 analyzes each image for defects in real-time" },
-  { num: "03", title: "Review", description: "View results with heatmaps, confidence scores, and pass/fail status" },
-  { num: "04", title: "Analyze", description: "Track trends, export reports, and optimize your QC pipeline" },
+  { n: "01", icon: Camera, title: "Capture", desc: "Snap a photo or stream from the line camera." },
+  { n: "02", icon: ScanEye, title: "Analyze", desc: "YOLO models scan every pixel for anomalies." },
+  { n: "03", icon: AlertTriangle, title: "Classify", desc: "Each defect is ranked by severity and type." },
+  { n: "04", icon: FileText, title: "Report", desc: "Export a shareable PDF with the full audit trail." },
 ];
 
-const COLOR_MAP: Record<string, string> = {
-  blue: "from-blue-500 to-blue-600",
-  purple: "from-purple-500 to-purple-600",
-  cyan: "from-cyan-500 to-cyan-600",
-  red: "from-red-500 to-red-600",
-  yellow: "from-amber-500 to-amber-600",
-  green: "from-emerald-500 to-emerald-600",
-};
+const USE_CASES = [
+  { icon: Factory, title: "Manufacturing", desc: "Detect surface defects on metal, plastic, and composite parts." },
+  { icon: Package, title: "Packaging", desc: "Catch torn labels, seal failures, and print errors on the line." },
+  { icon: Car, title: "Automotive", desc: "Inspect panels, welds, and assemblies with sub-millimeter precision." },
+  { icon: Cpu, title: "Electronics", desc: "Flag solder faults, component misplacement, and PCB damage instantly." },
+];
 
-export default function HomePage() {
+const TRUST = [
+  { icon: Target, label: "YOLO-Powered" },
+  { icon: Zap, label: "Real-Time" },
+  { icon: CheckCircle2, label: "99%+ Accuracy" },
+  { icon: FileText, label: "PDF Reports" },
+];
+
+export default function Home() {
   return (
-    <div className="min-h-screen">
-      <Navbar />
+    <div className="min-h-screen bg-[#0a0a0f] text-white overflow-x-hidden">
+      {/* Background glow */}
+      <div className="pointer-events-none fixed inset-0 -z-10">
+        <div className="absolute -top-40 left-1/2 h-[600px] w-[600px] -translate-x-1/2 rounded-full bg-red-500/10 blur-3xl" />
+        <div className="absolute top-1/3 right-0 h-[500px] w-[500px] rounded-full bg-amber-500/10 blur-3xl" />
+      </div>
 
-      {/* Hero */}
-      <section className="pt-32 pb-20 px-4">
-        <div className="max-w-5xl mx-auto text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-blue-500/30 bg-blue-500/10 text-blue-400 text-xs font-medium mb-6">
-            <Zap className="w-3.5 h-3.5" />
-            Powered by YOLOv8 Computer Vision
-          </div>
-
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-6">
-            AI-Powered{" "}
-            <span className="gradient-text">Quality Inspection</span>
-            <br />
-            for Manufacturing
-          </h1>
-
-          <p className="text-lg text-[var(--text-secondary)] max-w-2xl mx-auto mb-8">
-            Upload product photos and instantly detect defects — scratches, dents, misalignment, and more.
-            Real-time heatmap visualization, batch processing, and analytics dashboard.
-          </p>
-
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
-            <Link
-              href="/dashboard"
-              className="flex items-center gap-2 px-6 py-3 bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-xl transition-colors"
-            >
-              <Upload className="w-4 h-4" />
-              Start Inspecting
-              <ArrowRight className="w-4 h-4" />
-            </Link>
-            <Link
-              href="/analytics"
-              className="flex items-center gap-2 px-6 py-3 border border-[var(--border-color)] hover:border-blue-500/50 text-[var(--text-primary)] font-medium rounded-xl transition-colors"
-            >
-              <BarChart3 className="w-4 h-4" />
-              View Analytics
-            </Link>
-          </div>
-
-          {/* Stats */}
-          <div className="grid grid-cols-3 gap-6 max-w-lg mx-auto mt-14">
-            {[
-              { value: "<200ms", label: "Inference Time" },
-              { value: "95%+", label: "Detection Accuracy" },
-              { value: "50+", label: "Batch Size" },
-            ].map((stat) => (
-              <div key={stat.label}>
-                <p className="text-2xl font-bold gradient-text">{stat.value}</p>
-                <p className="text-xs text-[var(--text-muted)]">{stat.label}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Features Grid */}
-      <section className="py-20 px-4 bg-[var(--bg-secondary)]">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-3">
-              Everything You Need for{" "}
-              <span className="gradient-text">Quality Control</span>
-            </h2>
-            <p className="text-[var(--text-secondary)]">
-              Enterprise-grade defect detection in a modern, intuitive interface
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
-            {FEATURES.map((feature) => {
-              const Icon = feature.icon;
-              return (
-                <div
-                  key={feature.title}
-                  className="glass-card p-6 hover:border-blue-500/30 transition-all group"
-                >
-                  <div
-                    className={`w-10 h-10 rounded-lg bg-gradient-to-br ${
-                      COLOR_MAP[feature.color]
-                    } flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}
-                  >
-                    <Icon className="w-5 h-5 text-white" />
-                  </div>
-                  <h3 className="text-lg font-semibold mb-2">{feature.title}</h3>
-                  <p className="text-sm text-[var(--text-secondary)] leading-relaxed">
-                    {feature.description}
-                  </p>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* How It Works */}
-      <section className="py-20 px-4">
-        <div className="max-w-4xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-3">
-              How <span className="gradient-text">VisionQC</span> Works
-            </h2>
-            <p className="text-[var(--text-secondary)]">
-              Four simple steps from image to insight
-            </p>
-          </div>
-
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {STEPS.map((step, i) => (
-              <div key={step.num} className="relative">
-                <div className="glass-card p-6 text-center h-full">
-                  <span className="text-3xl font-bold gradient-text">{step.num}</span>
-                  <h3 className="text-lg font-semibold mt-3 mb-2">{step.title}</h3>
-                  <p className="text-sm text-[var(--text-secondary)]">{step.description}</p>
-                </div>
-                {i < STEPS.length - 1 && (
-                  <ArrowRight className="hidden lg:block absolute -right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-[var(--text-muted)]" />
-                )}
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* CTA */}
-      <section className="py-20 px-4 bg-[var(--bg-secondary)]">
-        <div className="max-w-3xl mx-auto text-center">
-          <div className="glass-card p-10 gradient-border">
-            <CheckCircle className="w-12 h-12 text-emerald-400 mx-auto mb-4" />
-            <h2 className="text-2xl font-bold mb-3">Ready to Automate Your QC?</h2>
-            <p className="text-[var(--text-secondary)] mb-6">
-              Start inspecting product images now — no setup required for the demo.
-            </p>
-            <Link
-              href="/dashboard"
-              className="inline-flex items-center gap-2 px-8 py-3 bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-xl transition-colors"
-            >
-              Launch Inspector
-              <ArrowRight className="w-4 h-4" />
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* Footer */}
-      <footer className="py-8 px-4 border-t border-[var(--border-color)]">
-        <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-2">
-            <div className="w-6 h-6 rounded-md bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
-              <Eye className="w-3.5 h-3.5 text-white" />
+      {/* NAVBAR */}
+      <header className="sticky top-0 z-50 border-b border-white/5 bg-[#0a0a0f]/70 backdrop-blur-xl">
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
+          <Link href="/" className="flex items-center gap-2.5">
+            <div className="relative flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-red-500 to-amber-500 shadow-lg shadow-red-500/20">
+              <ShieldCheck className="h-5 w-5 text-white" strokeWidth={2.5} />
+              <Eye className="absolute -bottom-0.5 -right-0.5 h-3 w-3 text-white" strokeWidth={3} />
             </div>
-            <span className="text-sm font-semibold gradient-text">VisionQC</span>
+            <span className="text-lg font-bold tracking-tight">VisionQC</span>
+          </Link>
+          <nav className="hidden items-center gap-8 text-sm text-slate-300 md:flex">
+            <a href="#features" className="hover:text-white">Features</a>
+            <a href="#how" className="hover:text-white">How it works</a>
+            <a href="#use-cases" className="hover:text-white">Use cases</a>
+          </nav>
+          <Link
+            href="/dashboard"
+            className="rounded-full bg-gradient-to-r from-red-500 to-amber-500 px-4 py-2 text-sm font-semibold text-white shadow-lg shadow-red-500/20 transition hover:shadow-red-500/40"
+          >
+            Launch App
+          </Link>
+        </div>
+      </header>
+
+      {/* HERO */}
+      <section className="relative">
+        <div className="mx-auto max-w-7xl px-4 pt-16 pb-20 sm:px-6 sm:pt-24 sm:pb-28 lg:px-8 lg:pt-32">
+          <div className="flex flex-col items-center text-center">
+            <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-xs font-medium text-slate-300 backdrop-blur">
+              <span className="h-1.5 w-1.5 rounded-full bg-red-500 animate-pulse" />
+              Industrial Computer Vision
+            </div>
+            <h1 className="mt-6 text-4xl font-extrabold tracking-tight sm:text-6xl lg:text-7xl">
+              Inspect With{" "}
+              <span className="bg-gradient-to-r from-red-400 via-red-500 to-amber-400 bg-clip-text text-transparent">
+                AI Precision
+              </span>
+            </h1>
+            <p className="mt-6 max-w-2xl text-base text-slate-400 sm:text-lg">
+              VisionQC turns any camera into a quality control engineer. Detect defects, classify severity,
+              and generate audit-ready reports — all in real time.
+            </p>
+            <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:gap-4">
+              <Link
+                href="/dashboard"
+                className="group inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-red-500 to-amber-500 px-7 py-3.5 text-sm font-semibold text-white shadow-lg shadow-red-500/25 transition hover:shadow-red-500/50"
+              >
+                Start Inspecting
+                <ArrowRight className="h-4 w-4 transition group-hover:translate-x-0.5" />
+              </Link>
+              <a
+                href="#features"
+                className="inline-flex items-center justify-center gap-2 rounded-full border border-white/10 bg-white/5 px-7 py-3.5 text-sm font-semibold text-white backdrop-blur transition hover:bg-white/10"
+              >
+                See how it works
+              </a>
+            </div>
+
+            {/* Trust bar */}
+            <div className="mt-16 grid w-full max-w-4xl grid-cols-2 gap-3 rounded-2xl border border-white/10 bg-white/[0.03] p-4 backdrop-blur sm:grid-cols-4 sm:gap-4 sm:p-5">
+              {TRUST.map((t) => (
+                <div key={t.label} className="flex items-center justify-center gap-2 text-sm text-slate-300">
+                  <t.icon className="h-4 w-4 text-amber-400" />
+                  <span className="font-medium">{t.label}</span>
+                </div>
+              ))}
+            </div>
           </div>
-          <p className="text-xs text-[var(--text-muted)]">
-            Built with Next.js, FastAPI, and YOLOv8 • Computer Vision Quality Inspector
-          </p>
+        </div>
+      </section>
+
+      {/* FEATURES */}
+      <section id="features" className="relative py-20 sm:py-28">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="mx-auto max-w-2xl text-center">
+            <div className="text-sm font-semibold uppercase tracking-wider text-red-400">Features</div>
+            <h2 className="mt-3 text-3xl font-bold tracking-tight sm:text-4xl">
+              Everything you need to ship perfect parts
+            </h2>
+            <p className="mt-4 text-slate-400">
+              A complete inspection suite — from raw pixels to signed reports.
+            </p>
+          </div>
+          <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {FEATURES.map((f) => (
+              <div
+                key={f.title}
+                className="group relative rounded-2xl border border-white/10 bg-white/[0.03] p-6 backdrop-blur transition hover:border-red-500/30 hover:bg-white/[0.05]"
+              >
+                <div className="mb-5 inline-flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-red-500/20 to-amber-500/20 ring-1 ring-red-500/30">
+                  <f.icon className="h-5 w-5 text-amber-400" />
+                </div>
+                <h3 className="text-lg font-semibold">{f.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-slate-400">{f.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* HOW IT WORKS */}
+      <section id="how" className="relative py-20 sm:py-28">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="mx-auto max-w-2xl text-center">
+            <div className="text-sm font-semibold uppercase tracking-wider text-amber-400">How it works</div>
+            <h2 className="mt-3 text-3xl font-bold tracking-tight sm:text-4xl">
+              From camera to compliance in four steps
+            </h2>
+          </div>
+          <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            {STEPS.map((s) => (
+              <div
+                key={s.n}
+                className="relative rounded-2xl border border-white/10 bg-white/[0.03] p-6 backdrop-blur"
+              >
+                <div className="text-xs font-bold text-red-400">{s.n}</div>
+                <div className="mt-3 inline-flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-to-br from-red-500 to-amber-500">
+                  <s.icon className="h-5 w-5 text-white" />
+                </div>
+                <h3 className="mt-4 font-semibold">{s.title}</h3>
+                <p className="mt-1.5 text-sm text-slate-400">{s.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* USE CASES */}
+      <section id="use-cases" className="relative py-20 sm:py-28">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="mx-auto max-w-2xl text-center">
+            <div className="text-sm font-semibold uppercase tracking-wider text-red-400">Use cases</div>
+            <h2 className="mt-3 text-3xl font-bold tracking-tight sm:text-4xl">
+              Built for every quality-critical line
+            </h2>
+          </div>
+          <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            {USE_CASES.map((u) => (
+              <div
+                key={u.title}
+                className="rounded-2xl border border-white/10 bg-white/[0.03] p-6 backdrop-blur transition hover:border-amber-500/30"
+              >
+                <u.icon className="h-8 w-8 text-amber-400" />
+                <h3 className="mt-4 font-semibold">{u.title}</h3>
+                <p className="mt-1.5 text-sm text-slate-400">{u.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* FINAL CTA */}
+      <section className="relative py-20 sm:py-28">
+        <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+          <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-red-500/10 via-white/[0.03] to-amber-500/10 p-10 text-center backdrop-blur sm:p-14">
+            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(239,68,68,0.15),transparent_60%)]" />
+            <div className="relative">
+              <h2 className="text-3xl font-bold tracking-tight sm:text-5xl">
+                Stop defects before they ship
+              </h2>
+              <p className="mx-auto mt-5 max-w-xl text-slate-400">
+                Bring AI quality control to your production line today. No extra hardware. No lock-in.
+              </p>
+              <Link
+                href="/dashboard"
+                className="mt-8 inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-red-500 to-amber-500 px-8 py-4 text-sm font-semibold text-white shadow-lg shadow-red-500/25 transition hover:shadow-red-500/50"
+              >
+                Launch VisionQC
+                <ArrowRight className="h-4 w-4" />
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* FOOTER */}
+      <footer className="border-t border-white/5 bg-[#07070b]">
+        <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
+          <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
+            <div>
+              <div className="flex items-center gap-2.5">
+                <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-red-500 to-amber-500">
+                  <ShieldCheck className="h-4 w-4 text-white" strokeWidth={2.5} />
+                </div>
+                <span className="font-bold">VisionQC</span>
+              </div>
+              <p className="mt-4 text-sm text-slate-500">
+                Industrial AI quality inspection for the modern production line.
+              </p>
+            </div>
+            <div>
+              <h4 className="text-sm font-semibold text-white">Product</h4>
+              <ul className="mt-4 space-y-2 text-sm text-slate-400">
+                <li><a href="#features" className="hover:text-white">Features</a></li>
+                <li><a href="#how" className="hover:text-white">How it works</a></li>
+                <li><Link href="/dashboard" className="hover:text-white">Dashboard</Link></li>
+                <li><Link href="/analytics" className="hover:text-white">Analytics</Link></li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="text-sm font-semibold text-white">Use cases</h4>
+              <ul className="mt-4 space-y-2 text-sm text-slate-400">
+                <li>Manufacturing</li>
+                <li>Packaging</li>
+                <li>Automotive</li>
+                <li>Electronics</li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="text-sm font-semibold text-white">Company</h4>
+              <ul className="mt-4 space-y-2 text-sm text-slate-400">
+                <li>About</li>
+                <li>Contact</li>
+                <li>Privacy</li>
+                <li>Terms</li>
+              </ul>
+            </div>
+          </div>
+          <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-white/5 pt-6 text-xs text-slate-500 sm:flex-row">
+            <div>© {new Date().getFullYear()} VisionQC. All rights reserved.</div>
+            <div>Built with YOLO · Next.js · Vercel</div>
+          </div>
         </div>
       </footer>
     </div>
